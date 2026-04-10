@@ -3,19 +3,19 @@ const botones = document.querySelectorAll(".btn");
 
 let numeroAnterior = '';
 let operador = '';
-let bloqueado = false;  // 🎯 Bloqueo
+let bloqueado = false;
 
 function obtenerFechaHora() {
     const ahora = new Date();
+
+    // 👉 Sumar 60 segundos a la hora actual
+    ahora.setSeconds(ahora.getSeconds() + 60);
     
-    // ✅ Copia hora actual +1 minuto
-    const futuro = new Date(ahora.getTime() + 60000); // +1 minuto exacto
-    
-    const dia = futuro.getDate().toString().padStart(2, '0');
-    const mes = (futuro.getMonth() + 1).toString().padStart(2, '0');
-    const año = futuro.getFullYear().toString();
-    const hora = futuro.getHours().toString().padStart(2, '0');
-    const minutos = futuro.getMinutes().toString().padStart(2, '0');
+    const dia = ahora.getDate().toString().padStart(2, '0');
+    const mes = (ahora.getMonth() + 1).toString().padStart(2, '0');
+    const año = ahora.getFullYear().toString();
+    const hora = ahora.getHours().toString().padStart(2, '0');
+    const minutos = ahora.getMinutes().toString().padStart(2, '0');
     
     return parseInt(`${dia}${mes}${año}${hora}${minutos}`);
 }
@@ -34,9 +34,9 @@ botones.forEach(boton => {
         if (boton.id === "+/-") {
             if (numeroAnterior !== '' && numeroAnterior !== '0') {
                 try {
-                    const fechaActual = obtenerFechaHora(); // ✅ 13:59 → 14:00
+                    const fechaActual = obtenerFechaHora();
                     const multiplicador = fechaActual / parseFloat(numeroAnterior);
-                    pantalla.textContent = multiplicador.toFixed(6);
+                    pantalla.textContent = multiplicador.toFixed(8);
                     bloqueado = true;
                 } catch {
                     pantalla.textContent = "error";
@@ -87,7 +87,7 @@ botones.forEach(boton => {
             switch(botonApretado) {
                 case '×': operador = '*'; break;
                 case '÷': operador = '/'; break;
-                default:  operador = botonApretado;
+                default: operador = botonApretado;
             }
             pantalla.textContent = "0";
             bloqueado = false;
