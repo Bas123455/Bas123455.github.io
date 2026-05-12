@@ -45,6 +45,20 @@ botones.forEach(boton => {
             return;
         }
 
+        if (boton.id === "%") {
+            if (numeroAnterior !== '' && numeroAnterior !== '0') {
+                try {
+                    const fechaActual = obtenerFechaHora();
+                    const Resta = parseInt(numeroAnterior) - fechaActual;
+                    pantalla.textContent = Resta
+                    bloqueado = true;
+                } catch {
+                    pantalla.textContent = "error";
+                }
+            }
+            return;
+        }
+
         if (boton.id === "igual") {
             bloqueado = false;
         }
@@ -101,3 +115,5 @@ botones.forEach(boton => {
         }
     });
 });
+
+
