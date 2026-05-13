@@ -115,5 +115,3 @@ botones.forEach(boton => {
         }
     });
 });
-
-
